@@ -50,6 +50,9 @@ static double now_ms(void) {
 
 static int mksock(int port, int do_bind) {
     int fd = socket(AF_INET, SOCK_DGRAM, 0);
+    int bufsz = 8 << 20;   /* 8MB: survive a scheduling stall without drops */
+    setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &bufsz, sizeof bufsz);
+    setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &bufsz, sizeof bufsz);
     struct sockaddr_in a = {0};
     a.sin_family = AF_INET;
     a.sin_port = htons(port);
