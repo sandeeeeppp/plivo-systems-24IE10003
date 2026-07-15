@@ -1,0 +1,7 @@
+sender
+receiver
+__pycache__/
+*.pyc
+playout_log.json
+relay_stats.json
+*.40ms_backup
